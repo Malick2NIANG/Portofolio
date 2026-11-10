@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-malick-niang",
+  "private": true,
+  "version": "2.0.0",
+  "scripts": {
+    "build": "esbuild src/app.js --bundle --minify --format=iife --target=es2019 --outfile=main.js",
+    "dev": "esbuild src/app.js --bundle --format=iife --outfile=main.js --watch",
+    "serve": "npx serve ."
+  },
+  "dependencies": {
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

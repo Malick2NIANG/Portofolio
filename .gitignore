@@ -1,0 +1,7 @@
+# Contient la clé API 21st : ne jamais publier
+.mcp.json
+# Outils locaux de Claude Code
+.claude/
+
+# Dépendances
+node_modules/

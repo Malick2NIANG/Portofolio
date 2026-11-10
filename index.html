@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Malick Niang — Ingénieur logiciel freelance</title>
+  <meta name="description" content="Malick Niang, ingénieur logiciel à Dakar. Plateformes web, applications mobiles, SaaS et IA, de la conception à la mise en ligne.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="Malick Niang — Ingénieur logiciel freelance">
+  <meta property="og:description" content="Je conçois et construis des logiciels, de l'idée à la mise en ligne. Depuis Dakar, pour le monde.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/malick.jpg">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="preload" href="assets/fonts/unbounded-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    /* thème appliqué avant l'affichage pour éviter un flash */
+    (function () {
+      try {
+        var t = localStorage.getItem("mn-theme");
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="is-loading">
+  <a class="skip" href="#contenu" data-i18n="skip">Aller au contenu</a>
+
+  <!-- Écran de démarrage -->
+  <div class="boot" aria-hidden="true">
+    <img class="boot-logo" src="assets/logo.png" alt="" width="440" height="166">
+    <span class="boot-count">000</span>
+  </div>
+
+  <!-- Scène 3D -->
+  <canvas class="scene" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="circuit" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="logo" href="#accueil" aria-label="Malick Niang, retour à l'accueil">
+      <picture><source srcset="assets/logo.webp" type="image/webp"><img src="assets/logo.png" alt="" width="440" height="166"></picture>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <ul>
+        <li><a href="#accueil" data-chapter="0" data-i18n="ch.0">Accueil</a></li>
+        <li><a href="#realisations" data-chapter="1" data-i18n="ch.1">Réalisations</a></li>
+        <li><a href="#services" data-chapter="2" data-i18n="ch.2">Services</a></li>
+        <li><a href="#parcours" data-chapter="3" data-i18n="ch.3">Parcours</a></li>
+        <li><a href="#contact" data-chapter="4" data-i18n="ch.4">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="top-tools">
+      <button class="tool" type="button" data-motion-toggle aria-pressed="false" aria-label="Mettre les animations en pause" title="Mettre les animations en pause">
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="1"/><rect x="13.5" y="5" width="3.5" height="14" rx="1"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </button>
+      <button class="tool" type="button" data-theme-toggle aria-label="Passer au thème clair" title="Passer au thème clair">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <button class="tool tool-lang" type="button" data-lang-toggle aria-label="Switch to English">EN</button>
+      <button class="tool tool-menu" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <nav class="menu" id="menu" aria-label="Menu">
+    <ol>
+      <li><a href="#accueil"><span>00</span><b data-i18n="ch.0">Accueil</b></a></li>
+      <li><a href="#realisations"><span>01</span><b data-i18n="ch.1">Réalisations</b></a></li>
+      <li><a href="#services"><span>02</span><b data-i18n="ch.2">Services</b></a></li>
+      <li><a href="#parcours"><span>03</span><b data-i18n="ch.3">Parcours</b></a></li>
+      <li><a href="#contact"><span>04</span><b data-i18n="ch.4">Contact</b></a></li>
+    </ol>
+    <p class="menu-foot"><a href="mailto:nmalick166@gmail.com">nmalick166@gmail.com</a></p>
+  </nav>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <main id="contenu">
+    <!-- 00 ACCUEIL -->
+    <section class="chapter hero" id="accueil" data-chapter="0" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-text">
+        <p class="hero-name" data-reveal>Malick Niang</p>
+        <h1 id="hero-title" class="hero-title" data-reveal data-scramble data-i18n="hero.title">Je construis les logiciels de demain, depuis Dakar.</h1>
+        <p class="hero-lede" data-reveal data-i18n="hero.lede">Ingénieur logiciel freelance. Plateformes web, applications mobiles, SaaS et IA&nbsp;: je m'occupe de tout, de l'idée à la mise en ligne.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="btn btn-primary" href="#contact" data-i18n="hero.cta">Démarrer un projet</a>
+          <a class="btn btn-line" href="#realisations" data-i18n="hero.cta2">Voir les réalisations</a>
+        </div>
+        <p class="status" data-reveal data-i18n="hero.status">Disponible pour des missions freelance</p>
+        </div>
+      </div>
+      <p class="scroll-cue" aria-hidden="true"><span data-i18n="hero.scroll">Faites défiler</span><span class="scroll-line"></span></p>
+    </section>
+
+    <!-- 01 RÉALISATIONS -->
+    <section class="chapter" id="realisations" data-chapter="1" aria-labelledby="work-title">
+      <div class="wrap">
+        <header class="chapter-head" data-reveal>
+          <p class="chapter-num">01</p>
+          <h2 id="work-title" data-scramble data-i18n="work.title">Réalisations</h2>
+          <p class="chapter-lede" data-i18n="work.intro">Des produits complets, conçus pour des problèmes réels du Sénégal et de sa diaspora.</p>
+        </header>
+
+        <article class="case" data-reveal aria-labelledby="c1-title">
+          <div class="case-head">
+            <h3 id="c1-title" data-i18n="c1.title">Plateforme immobilière vérifiée</h3>
+            <p class="case-tag" data-i18n="c1.tag">Web et PWA, en cours de lancement</p>
+          </div>
+          <p class="case-pitch" data-i18n="c1.pitch">Beaucoup d'annonces de location sont fausses ou déjà prises. Cette plateforme fait vérifier chaque bien sur le terrain et bloque l'argent jusqu'à ce que le locataire soit installé.</p>
+          <ul class="case-points">
+            <li data-i18n="c1.p1">Visites de vérification par des agents terrain, avec photos et rapport noté</li>
+            <li data-i18n="c1.p2">Paiement sous séquestre, location à la nuit, au mois ou vente</li>
+            <li data-i18n="c1.p3">Recherche en langage naturel, en français et en anglais, sans API payante</li>
+          </ul>
+
+          <div class="demo" aria-labelledby="demo-title">
+            <p id="demo-title" class="demo-title" data-i18n="demo.title">Essayez la recherche</p>
+            <label class="demo-hint" for="demo-input" data-i18n="demo.label">Tapez une recherche de logement comme vous la diriez : type, quartier, chambres, budget.</label>
+            <div class="demo-field">
+              <span class="demo-prompt" aria-hidden="true">›</span>
+              <input id="demo-input" type="text" autocomplete="off" spellcheck="false" value="appart 2 chambres meublé à Almadies moins de 350k" aria-describedby="demo-chips">
+              <button class="demo-clear" type="button" data-demo-clear data-i18n="demo.clear">Effacer</button>
+            </div>
+            <div class="demo-examples" role="group" aria-label="Exemples de recherche">
+              <span class="demo-ex-label" data-i18n="demo.ex">Exemples :</span>
+              <button type="button" data-q="studio Mermoz à la nuit">studio Mermoz à la nuit</button>
+              <button type="button" data-q="villa F5 Ngor à vendre">villa F5 Ngor à vendre</button>
+              <button type="button" data-q="2 bedroom flat in Plateau under 500,000">2 bedroom flat in Plateau under 500,000</button>
+            </div>
+            <ul class="chips" id="demo-chips" aria-live="polite"></ul>
+          </div>
+          <p class="case-stack">Next.js, NestJS, PostgreSQL, Prisma, PayDunya</p>
+        </article>
+
+        <article class="case" data-reveal aria-labelledby="c2-title">
+          <div class="case-head">
+            <h3 id="c2-title" data-i18n="c2.title">Marketplace Sénégal et diaspora</h3>
+            <p class="case-tag" data-i18n="c2.tag">Application mobile, en développement</p>
+          </div>
+          <p class="case-pitch" data-i18n="c2.pitch">Les produits du pays, commandés depuis l'étranger et livrés par des voyageurs vérifiés. Un même commerçant vend à Dakar et à la diaspora depuis une seule boutique.</p>
+          <ul class="case-points">
+            <li data-i18n="c2.p1">Un colis par boutique, tous confiés au même voyageur, capacité contrôlée au kilo</li>
+            <li data-i18n="c2.p2">Paiement bloqué jusqu'à la livraison, photo de preuve à chaque étape</li>
+            <li data-i18n="c2.p3">Messagerie de groupe en temps réel, vocaux compris, et commandes sur mesure</li>
+          </ul>
+          <p class="case-stack">React Native, Expo, NestJS, PostgreSQL, Socket.io</p>
+        </article>
+
+        <div class="more" data-reveal>
+          <h3 class="more-title" data-i18n="more.title">Autres projets</h3>
+          <ul class="more-list">
+            <li><span class="m-name">SSD Consulting</span><span class="m-desc" data-i18n="more.ssd">Startup co-fondée avec d'anciens camarades : solutions SaaS pour les entreprises.</span></li>
+            <li><span class="m-name" data-i18n="more.fuel.n">SaaS stations-service</span><span class="m-desc" data-i18n="more.fuel">Gestion des stocks et des ventes des boutiques de stations-service.</span></li>
+            <li><span class="m-name">SENEVENTS</span><span class="m-desc" data-i18n="more.sen">Application de gestion d'événements.</span></li>
+            <li><span class="m-name" data-i18n="more.parr.n">Parrainage présidentiel</span><span class="m-desc" data-i18n="more.parr">Collecte des parrainages pour l'élection présidentielle au Sénégal.</span></li>
+            <li><span class="m-name" data-i18n="more.bfem.n">Délibérations du BFEM</span><span class="m-desc" data-i18n="more.bfem">Prototype de gestion des délibérations de l'examen national.</span></li>
+            <li><span class="m-name" data-i18n="more.ftps.n">Serveur FTPS</span><span class="m-desc" data-i18n="more.ftps">Sécurisation d'un serveur FTP sous Linux avec chiffrement TLS.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 SERVICES -->
+    <section class="chapter" id="services" data-chapter="2" aria-labelledby="svc-title">
+      <div class="wrap">
+        <header class="chapter-head" data-reveal>
+          <p class="chapter-num">02</p>
+          <h2 id="svc-title" data-scramble data-i18n="svc.title">Services</h2>
+          <p class="chapter-lede" data-i18n="svc.intro">Un seul interlocuteur, du premier échange à la mise en ligne.</p>
+        </header>
+        <ol class="svc">
+          <li data-reveal><h3 data-i18n="svc.1.t">Plateformes web et SaaS</h3><p data-i18n="svc.1.d">Espaces clients, tableaux de bord, abonnements, rôles et administration.</p></li>
+          <li data-reveal><h3 data-i18n="svc.2.t">Applications mobiles</h3><p data-i18n="svc.2.d">Android et iOS avec une seule base de code : notifications, carte, messagerie.</p></li>
+          <li data-reveal><h3 data-i18n="svc.3.t">Paiements locaux</h3><p data-i18n="svc.3.d">Wave, Orange Money, cartes bancaires, séquestre et contrôle des montants.</p></li>
+          <li data-reveal><h3 data-i18n="svc.4.t">IA et recherche intelligente</h3><p data-i18n="svc.4.d">Recherche en langage naturel, extraction d'informations, assistants, à coût maîtrisé.</p></li>
+          <li data-reveal><h3 data-i18n="svc.5.t">Mise en production</h3><p data-i18n="svc.5.d">Serveur, Docker, HTTPS, sauvegardes, intégration continue et audit de sécurité.</p></li>
+        </ol>
+        <div class="process" data-reveal>
+          <h3 class="process-title" data-i18n="proc.title">Comment se déroule un projet</h3>
+          <ol>
+            <li><b data-i18n="proc.1.t">Échange</b><span data-i18n="proc.1.d">On clarifie votre besoin et vos contraintes.</span></li>
+            <li><b data-i18n="proc.2.t">Proposition</b><span data-i18n="proc.2.d">Périmètre, délai et prix, par écrit.</span></li>
+            <li><b data-i18n="proc.3.t">Développement</b><span data-i18n="proc.3.d">Des démos régulières pour valider au fur et à mesure.</span></li>
+            <li><b data-i18n="proc.4.t">Mise en ligne</b><span data-i18n="proc.4.d">Déploiement, prise en main et suivi.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 PARCOURS -->
+    <section class="chapter" id="parcours" data-chapter="3" aria-labelledby="about-title">
+      <div class="wrap about">
+        <header class="chapter-head" data-reveal>
+          <p class="chapter-num">03</p>
+          <h2 id="about-title" data-scramble data-i18n="about.title">Parcours</h2>
+        </header>
+        <div class="about-grid">
+          <div>
+            <p class="about-lede" data-reveal data-i18n="about.lede">Né et formé à Dakar, j'écris du code pour résoudre des problèmes concrets : la confiance dans les paiements en ligne, la logistique, les outils de gestion des petites entreprises.</p>
+            <ol class="timeline" data-reveal>
+              <li><span class="t-date">2026 – 2027</span><span data-i18n="tl.1">Master 2 Génie Logiciel et Systèmes d'Information, École Supérieure Polytechnique de Dakar</span></li>
+              <li><span class="t-date">2026</span><span data-i18n="tl.2">Stage développeur, SSA Center de FBNBank Sénégal</span></li>
+              <li><span class="t-date">2025 – 2026</span><span data-i18n="tl.3">Master 1 Génie Logiciel et Systèmes d'Information, ESP Dakar</span></li>
+              <li><span class="t-date">2022 – 2025</span><span data-i18n="tl.4">Licence en Génie Logiciel, Université Iba Der Thiam de Thiès</span></li>
+              <li><span class="t-date">2021</span><span data-i18n="tl.5">Baccalauréat S1, Cours Sainte Marie de Hann</span></li>
+            </ol>
+            <dl class="skills" data-reveal>
+              <div><dt data-i18n="sk.lang">Langages</dt><dd>TypeScript, JavaScript, Python, Java, C#, PHP, C</dd></div>
+              <div><dt data-i18n="sk.fw">Frameworks</dt><dd>Next.js, React, React Native, NestJS, Angular, Laravel, .NET, Flutter</dd></div>
+              <div><dt data-i18n="sk.data">Données et infra</dt><dd>PostgreSQL, MySQL, Prisma, Docker, GitHub Actions, Azure DevOps</dd></div>
+              <div><dt data-i18n="sk.langs">Langues</dt><dd data-i18n="sk.langs.v">Français, wolof, anglais</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 CONTACT -->
+    <section class="chapter contact" id="contact" data-chapter="4" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div>
+          <header class="chapter-head" data-reveal>
+            <p class="chapter-num">04</p>
+            <h2 id="contact-title" data-scramble data-i18n="contact.title">Parlons de votre projet</h2>
+            <p class="chapter-lede" data-i18n="contact.lede">Réponse sous 24 heures avec une première estimation.</p>
+          </header>
+          <p class="contact-hint" data-reveal data-i18n="contact.hint">Pour une réponse précise, indiquez le type de projet, le délai souhaité et votre budget.</p>
+          <div class="contact-actions" data-reveal>
+            <a class="btn btn-primary" href="https://wa.me/221775278980" target="_blank" rel="noopener" data-i18n="contact.wa">Écrire sur WhatsApp</a>
+            <a class="btn btn-line" href="mailto:nmalick166@gmail.com?subject=Projet%20%E2%80%94%20demande%20de%20devis" data-i18n="contact.mailbtn">Envoyer un e-mail</a>
+          </div>
+          <p class="contact-mail-row" data-reveal>
+            <span class="contact-mail">nmalick166<wbr>@gmail.com</span>
+            <button class="copy" type="button" data-copy="nmalick166@gmail.com" data-i18n="contact.copy">Copier l'adresse</button>
+            <span class="copy-status" role="status" aria-live="polite"></span>
+          </p>
+          <ul class="contact-links" data-reveal>
+            <li><a href="https://www.linkedin.com/in/malick-niang-a88429355" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/Malick2NIANG" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+        <figure class="hero-photo contact-photo" data-reveal>
+          <svg class="traces" viewBox="0 0 400 400" aria-hidden="true">
+            <path d="M8 120h52l28 28h22"/><circle cx="8" cy="120" r="5"/>
+            <path d="M20 172h40l14 14h30"/><circle cx="20" cy="172" r="5"/>
+            <path d="M392 228h-48l-26 26h-26"/><circle cx="392" cy="228" r="5"/>
+            <path d="M380 282h-36l-14-14h-34"/><circle cx="380" cy="282" r="5"/>
+          </svg>
+          <div class="hero-photo-frame">
+            <picture>
+              <source srcset="assets/malick-hero.webp" type="image/webp">
+              <img src="assets/malick-hero.jpg" alt="Portrait de Malick Niang" width="720" height="720">
+            </picture>
+          </div>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <div class="sf-top">
+        <div class="sf-brand">
+          <img src="assets/logo.png" alt="Malick Niang" width="440" height="166">
+          <p data-i18n="foot.tag">Ingénieur logiciel freelance. Plateformes web, applications mobiles, SaaS et IA, depuis Dakar.</p>
+        </div>
+        <nav class="sf-col" aria-labelledby="sf-nav">
+          <h2 id="sf-nav" data-i18n="foot.nav">Navigation</h2>
+          <ul>
+            <li><a href="#accueil" data-i18n="ch.0">Accueil</a></li>
+            <li><a href="#realisations" data-i18n="ch.1">Réalisations</a></li>
+            <li><a href="#services" data-i18n="ch.2">Services</a></li>
+            <li><a href="#parcours" data-i18n="ch.3">Parcours</a></li>
+            <li><a href="#contact" data-i18n="ch.4">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="sf-col">
+          <h2 data-i18n="foot.services">Services</h2>
+          <ul>
+            <li data-i18n="svc.1.t">Plateformes web et SaaS</li>
+            <li data-i18n="svc.2.t">Applications mobiles</li>
+            <li data-i18n="svc.3.t">Paiements locaux</li>
+            <li data-i18n="svc.4.t">IA et recherche intelligente</li>
+          </ul>
+        </div>
+        <div class="sf-col">
+          <h2 data-i18n="foot.contact">Contact</h2>
+          <ul>
+            <li><a href="mailto:nmalick166@gmail.com">nmalick166@gmail.com</a></li>
+            <li><a href="https://wa.me/221775278980" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://www.linkedin.com/in/malick-niang-a88429355" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/Malick2NIANG" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="sf-bottom">
+        <p>© <span id="year">2026</span> Malick Niang. <span data-i18n="foot.rights">Tous droits réservés.</span></p>
+        <p data-i18n="foot.made">Conçu et développé à Dakar, Sénégal.</p>
+        <p class="sf-keys" data-i18n="foot.keys">Raccourcis : touches <kbd>0</kbd> à <kbd>4</kbd> pour aller à une section.</p>
+        <a class="sf-top-link" href="#accueil" data-i18n="foot.top">Revenir en haut</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
