@@ -98,7 +98,7 @@ function applyLang(next) {
   langBtn.setAttribute("aria-label", lang === "en" ? "Passer en français" : "Switch to English");
   setChapterLabel(current);
   try { localStorage.setItem("mn-lang", lang); } catch (_) {}
-  runDemo();
+  if (input) runDemo();
   if (typeof syncThemeButton === "function") syncThemeButton();
   if (typeof syncMotionButton === "function") syncMotionButton();
 }
@@ -361,19 +361,14 @@ function frame(ts) {
 }
 let raf = 0, running = false;
 let paused = reduceMotion;
-try { const m = localStorage.getItem("mn-motion"); if (m === "off") paused = true; else if (m === "on") paused = false; } catch (_) {}
+// l'ancien choix « pause » n'est plus proposé : on l'oublie
+try { localStorage.removeItem("mn-motion"); } catch (_) {}
 function start() { if (renderer && !running && !paused) { running = true; prevTs = performance.now(); raf = requestAnimationFrame(frame); } }
 function stop() { running = false; cancelAnimationFrame(raf); }
 document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
 
-/* contrôle explicite : l'utilisateur peut suspendre puis reprendre les animations */
-const motionBtn = $("[data-motion-toggle]");
+/* animations figées uniquement si le système demande de réduire les animations */
 function syncMotionButton() {
-  motionBtn.setAttribute("aria-pressed", String(paused));
-  const label = paused
-    ? (lang === "en" ? "Resume animations" : "Reprendre les animations")
-    : (lang === "en" ? "Pause animations" : "Mettre les animations en pause");
-  motionBtn.setAttribute("aria-label", label); motionBtn.title = label;
   root.classList.toggle("no-motion", paused);
 }
 function renderStill() {
@@ -386,12 +381,6 @@ function renderStill() {
   mat.uniforms.uScatter.value = 0;
   renderer.render(scene, camera);
 }
-motionBtn.addEventListener("click", () => {
-  paused = !paused;
-  try { localStorage.setItem("mn-motion", paused ? "off" : "on"); } catch (_) {}
-  syncMotionButton();
-  if (paused) { stop(); renderStill(); } else start();
-});
 window.addEventListener("scroll", () => { if (paused) requestAnimationFrame(renderStill); }, { passive: true });
 
 /* =========================================================
@@ -448,31 +437,11 @@ $$('a[href^="#"]').forEach((a) => a.addEventListener("click", (e) => {
 /* =========================================================
    Révélations et texte qui se décode
    ========================================================= */
-const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/<>_";
-function scramble(el) {
-  if (reduceMotion || el.dataset.scrambled) return;
-  el.dataset.scrambled = "1";
-  const final = el.textContent; const len = final.length; const dur = 900; const t0 = performance.now();
-  el.setAttribute("aria-label", final);
-  (function step(now) {
-    const p = Math.min(1, (now - t0) / dur);
-    let out = "";
-    for (let i = 0; i < len; i++) {
-      const ch = final[i];
-      if (ch === " " || i / len < p) out += ch;
-      else out += GLYPHS[(Math.random() * GLYPHS.length) | 0];
-    }
-    el.textContent = out;
-    if (p < 1) requestAnimationFrame(step); else { el.textContent = final; el.removeAttribute("aria-label"); }
-  })(t0);
-}
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
       e.target.classList.add("is-in");
-      if (e.target.hasAttribute("data-scramble")) scramble(e.target);
-      $$("[data-scramble]", e.target).forEach(scramble);
       io.unobserve(e.target);
     });
   }, { threshold: .15, rootMargin: "0px 0px -8% 0px" });
@@ -572,9 +541,11 @@ function runDemo() {
   prev = keys;
 }
 let dt;
+if (input) {
 input.addEventListener("input", () => { clearTimeout(dt); dt = setTimeout(runDemo, 120); });
 $("[data-demo-clear]").addEventListener("click", () => { input.value = ""; runDemo(); input.focus(); });
 $$(".demo-examples button").forEach((btn) => btn.addEventListener("click", () => { input.value = btn.dataset.q; runDemo(); input.focus(); }));
+}
 
 /* =========================================================
    Démarrage

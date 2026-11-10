@@ -261,7 +261,12 @@ body:not(.is-loading) .boot, html:not(.js) .boot { opacity: 0; visibility: hidde
   counter-increment: s; display: grid; grid-template-columns: 3rem minmax(0, 1fr); column-gap: 1rem;
   padding: 1.6rem 0; border-bottom: 1px solid var(--line);
 }
-.svc li::before { content: counter(s, decimal-leading-zero); grid-row: span 2; font: 600 .8rem/1.9 var(--display); color: var(--accent-text); }
+.svc-ico {
+  grid-row: span 2; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 12px;
+  color: var(--accent-text); background: rgba(250, 110, 0, .12); border: 1px solid rgba(250, 110, 0, .28);
+}
+.svc-ico svg { width: 1.4rem; height: 1.4rem; }
+.svc li { grid-template-columns: 2.75rem minmax(0, 1fr); column-gap: 1.1rem; }
 .svc h3 { font: 600 var(--step-2)/1.2 var(--display); letter-spacing: -0.02em; }
 .svc p { margin-top: .4rem; color: var(--mute); }
 
@@ -394,3 +399,195 @@ kbd {
   border-radius: 5px; font: 600 .75rem/1.3 var(--text); text-align: center; color: var(--fg);
 }
 @media (hover: none) { .sf-keys { display: none; } }
+
+/* ============================================================
+   Glassmorphism : panneaux en verre dépoli derrière les textes.
+   La scène 3D, le fond et les animations restent visibles au travers.
+   ============================================================ */
+[data-theme="dark"] {
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-shine: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.75), 0 0 40px -25px rgba(250, 110, 0, 0.35);
+  --glass-inner: rgba(255, 255, 255, 0.04);
+  --glass-fallback: rgba(12, 12, 12, 0.88);
+}
+[data-theme="light"] {
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.38) 100%);
+  --glass-border: rgba(0, 0, 0, 0.09);
+  --glass-shine: rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 20px 60px -25px rgba(0, 0, 0, 0.22), 0 0 40px -25px rgba(250, 110, 0, 0.3);
+  --glass-inner: rgba(255, 255, 255, 0.4);
+  --glass-fallback: rgba(255, 255, 255, 0.92);
+}
+
+.hero-text,
+.chapter-head,
+.case,
+.more,
+.svc,
+.process,
+.about-grid > div,
+.contact-grid > div:first-child {
+  position: relative;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+          backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 1px 0 var(--glass-shine), var(--glass-shadow);
+}
+.hero-text { max-width: 52rem; }
+.svc { border-top: 1px solid var(--glass-border); padding-top: .5rem; padding-bottom: .5rem; }
+.svc li:last-child, .more-list li { border-bottom-color: var(--line); }
+.svc li:last-child { border-bottom: 0; }
+.more { max-width: 52rem; }
+.case + .case { margin-top: 2rem; }
+.case::before { border-radius: 22px; }
+
+/* Dans le bloc Contact, l'en-tête fait déjà partie du panneau. */
+.contact-grid > div:first-child .chapter-head {
+  padding: 0; border: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+
+/* Éléments à l'intérieur d'un panneau : verre plus léger, sans second flou. */
+.process li, .demo-field { background: var(--glass-inner); border-color: var(--glass-border); }
+.process li { border-radius: 14px; }
+
+/* Barre du haut et menu des sections */
+.topnav ul {
+  background: var(--glass-bg); border-color: var(--glass-border);
+  -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%);
+}
+.top.is-scrolled {
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+}
+.tool { background: var(--glass-inner); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+
+/* Pied de page */
+.site-foot {
+  background: var(--glass-bg); border-top-color: var(--glass-border);
+  -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+}
+
+/* Navigateurs sans flou d'arrière-plan : fond plus opaque pour garder le texte lisible. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero-text, .chapter-head, .case, .more, .svc, .process,
+  .about-grid > div, .contact-grid > div:first-child, .site-foot, .topnav ul { background: var(--glass-fallback); }
+}
+
+/* ============================================================
+   Mise en grille des blocs
+   ============================================================ */
+/* Réalisations : les projets côte à côte */
+.cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; align-items: stretch; }
+.cases .case { max-width: none; margin: 0; }
+.case + .case { margin-top: 0; }
+.more { max-width: none; margin-top: 1.5rem; }
+
+/* Services : une carte en verre par service */
+.svc {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1.25rem;
+  max-width: none; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.svc li, .svc li:last-child {
+  padding: 1.6rem 1.5rem; border: 1px solid var(--glass-border); border-radius: 18px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 1px 0 var(--glass-shine), var(--glass-shadow);
+  transition: border-color .3s, transform .3s var(--ease);
+}
+.svc li:hover { border-color: rgba(250, 110, 0, .55); }
+.process { max-width: none; margin-top: 1.5rem; }
+
+/* Parcours : formation à gauche, compétences à droite */
+.about-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.about-grid .skills { margin-top: 0; grid-template-columns: 1fr; gap: 1.25rem; }
+
+@media (max-width: 900px) {
+  .cases, .about-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Pied de page : logos GitHub, WhatsApp, LinkedIn
+   ============================================================ */
+.sf-socials { display: flex; gap: .65rem; margin-top: 1.1rem; }
+.sf-social {
+  display: inline-grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  border: 1px solid var(--glass-border); background: var(--glass-inner); color: var(--fg);
+  transition: color .25s, background-color .25s, border-color .25s, transform .25s var(--ease);
+}
+.sf-social svg { width: 1.3rem; height: 1.3rem; fill: currentColor; }
+.sf-social:hover { transform: translateY(-2px); color: #fff; }
+.sf-social.is-gh:hover { background: #181717; border-color: #181717; }
+.sf-social.is-wa:hover { background: #25D366; border-color: #25D366; }
+.sf-social.is-li:hover { background: #0A66C2; border-color: #0A66C2; }
+[data-theme="dark"] .sf-social.is-gh:hover { background: #fff; border-color: #fff; color: #181717; }
+.sf-col .sf-social { color: var(--fg); }
+.sf-col .sf-social:hover { color: #fff; }
+[data-theme="dark"] .sf-col .sf-social.is-gh:hover { color: #181717; }
+
+/* Accueil : texte posé directement sur la scène, sans panneau en verre */
+.hero-text {
+  padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+
+/* ============================================================
+   Technologies : bande qui défile en continu
+   ============================================================ */
+.techs {
+  position: relative; z-index: 1; overflow: hidden; padding: 1.4rem 0;
+  border-block: 1px solid var(--glass-border, var(--line));
+  background: var(--glass-bg, var(--panel));
+  -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.techs-track { display: flex; width: max-content; animation: techs-scroll 45s linear infinite; }
+.techs:hover .techs-track { animation-play-state: paused; }
+.techs ul { display: flex; align-items: center; gap: 3rem; padding-right: 3rem; list-style: none; margin: 0; }
+.techs li { display: flex; align-items: center; gap: .65rem; white-space: nowrap; color: var(--mute); font-weight: 500; }
+.techs svg { width: 1.6rem; height: 1.6rem; flex: none; color: var(--fg); }
+.tk-mono {
+  display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 6px;
+  font: 600 .6rem/1 var(--display); color: #fff; background: #512BD4;
+}
+.techs li:nth-child(20) .tk-mono { background: #0078D4; }
+@keyframes techs-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .techs-track { animation: none; }
+  .techs { overflow-x: auto; }
+}
+
+/* ============================================================
+   Fluidité du défilement : le flou d'arrière-plan (backdrop-filter) était
+   recalculé à chaque image derrière chaque panneau et faisait saccader le
+   défilement. Les panneaux gardent l'aspect verre grâce à un fond
+   légèrement plus opaque ; la barre du haut devient simplement plus opaque.
+   ============================================================ */
+[data-theme="dark"] {
+  --glass-bg: linear-gradient(135deg, rgba(30, 30, 30, 0.84) 0%, rgba(14, 14, 14, 0.74) 100%);
+}
+[data-theme="light"] {
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.76) 100%);
+}
+.hero-text, .chapter-head, .case, .more, .svc, .svc li, .process,
+.about-grid > div, .contact-grid > div:first-child, .site-foot, .tool, .techs,
+.topnav ul, .top, .top.is-scrolled, .menu, .sf-social {
+  -webkit-backdrop-filter: none !important;
+          backdrop-filter: none !important;
+}
+.top.is-scrolled { background: color-mix(in srgb, var(--bg) 90%, transparent); }
+[data-theme="dark"] .topnav ul { background: rgba(22, 22, 22, 0.86); }
+[data-theme="light"] .topnav ul { background: rgba(255, 255, 255, 0.9); }
+
+/* Mobile : liens texte du pied de page et du menu assez grands pour le doigt (≥ 44 px) */
+@media (pointer: coarse) {
+  .sf-col ul { gap: 0; }
+  .sf-col li a, .sf-top-link, .menu-foot a { display: inline-flex; align-items: center; min-height: 44px; }
+}
