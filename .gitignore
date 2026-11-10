@@ -5,3 +5,6 @@
 
 # Dépendances
 node_modules/
+
+# Dossier généré par Vercel au déploiement
+public/
